@@ -1,0 +1,67 @@
+* {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+}
+#container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 450px;
+    max-width: 90%;
+    text-align: center;
+}
+h1 {
+    margin-bottom: 25px;
+    font-size: 28px;
+    color: #ff6b6b;
+    text-shadow: 1px 1px 2px rgba(255, 107, 107, 0.5);
+}
+input, select, button {
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 15px;
+    font-size: 18px;
+    border-radius: 10px;
+    border: 2px solid #ff6b6b;
+    outline: none;
+}
+input:focus, select:focus, button:focus {
+    border-color: #ff6b6b;
+    box-shadow: 0 0 5px rgba(255, 107, 107, 0.5);
+}
+button {
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+button:hover {
+    background-color: #ff4b4b;
+}
+#statusMessage {
+    display: none;
+    margin-top: 25px;
+    font-size: 16px;
+    font-weight: bold;
+}
+.success {
+    color: #4caf50;
+}
+.error {
+    color: #f44336;
+}

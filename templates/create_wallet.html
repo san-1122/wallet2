@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Wallet Address</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <h1>Create Wallet Address</h1>
+    <button id="createWalletButton">Create Wallet</button>
+    <p>Wallet Address: <span id="walletAddress"></span></p>
+
+    <script>
+        document.getElementById('createWalletButton').addEventListener('click', async () => {
+            const response = await fetch('/api/create-wallet', {
+                method: 'POST'
+            });
+            const data = await response.json();
+            document.getElementById('walletAddress').innerText = data.wallet_address;
+        });
+    </script>
+</body>
+</html>

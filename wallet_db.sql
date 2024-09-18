@@ -1,0 +1,98 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Sep 08, 2024 at 02:57 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.0.30
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `wallet_db`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_wallets`
+--
+
+CREATE TABLE `user_wallets` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `wallet_address` varchar(255) DEFAULT NULL,
+  `private_key` text DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `user_wallets`
+--
+
+INSERT INTO `user_wallets` (`id`, `user_id`, `wallet_address`, `private_key`, `created_at`) VALUES
+(1, 1, '0x09b5926febe25A9457C9F6E809Ab62C3905a90D0', '103199753917182780945373038809480037810768181541406628024767952105122226293454', '2024-09-08 12:03:03'),
+(2, 1, '0xCB0BF38A44D638864b98Fa90eC17Dfede06a0eff', '56907123192036628537723876885259152510333885269830388158498995501979587654475', '2024-09-08 12:03:04'),
+(3, 1, '0x03dC581513595A34f551293632150d7E72DF250d', '31855214345155630282955348243441359908836416166602687704407981919745135902756', '2024-09-08 12:21:54'),
+(4, 1, '0x3C9e41fd70dE47389e137E6c00E0F4811F60dA17', '18294154290252114969902424834665829163272708980444272017893135265998215245114', '2024-09-08 12:36:39'),
+(5, 1, '0x06CC1e0Fad0037b17a5d930353C7Fcad4646b4F9', '5141272539637164587624318410439461670120706544958053197348333219115525047962', '2024-09-08 12:36:42'),
+(6, 1, '0xF70465Ab4799C8711c49197706e5eC5046e384b0', '36563542083321966114429512280355717946269183159287357812548567766304536764474', '2024-09-08 12:54:03');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `wallets`
+--
+
+CREATE TABLE `wallets` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `wallet_address` longtext DEFAULT NULL,
+  `private_key` longtext DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `user_wallets`
+--
+ALTER TABLE `user_wallets`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `wallets`
+--
+ALTER TABLE `wallets`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `user_wallets`
+--
+ALTER TABLE `user_wallets`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `wallets`
+--
+ALTER TABLE `wallets`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

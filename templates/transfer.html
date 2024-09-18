@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transfer Tokens</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        #container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-top: 50px;
+        }
+        h1 {
+            color: #ff69b4; /* Pink color */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 15px;
+            background-color: #ff69b4; /* Pink color */
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #ff4d9a;
+        }
+        #statusMessage {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        /* Notification styles */
+        #notification {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+            padding: 20px;
+            background-color: #4caf50; /* Green color */
+            color: white;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            font-size: 18px;
+            text-align: center;
+        }
+        #notification.checkmark {
+            display: block;
+        }
+        #checkmark {
+            width: 40px;
+            height: 40px;
+            border: 5px solid white;
+            border-radius: 50%;
+            border-top: 5px solid #ff69b4;
+            border-right: 5px solid #ff69b4;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes checkmark {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Transfer Tokens</h1>
+        <form id="transferForm">
+            <label for="recipient">Recipient Address:</label>
+            <input type="text" id="recipient" placeholder="0xRecipientAddress" required>
+        
+            <label for="amount">Amount:</label>
+            <input type="number" id="amount" placeholder="Enter amount" required>
+        
+            <label for="token">Select Token:</label>
+            <select id="token">
+                <option value="ETH">ETH</option>
+                <option value="ERC20">ERC-20 Token</option>
+            </select>
+        
+            <div id="tokenContractAddress" style="display: none;">
+                <label for="contractAddress">Contract Address:</label>
+                <input type="text" id="contractAddress" placeholder="0xContractAddress">
+            </div>
+        
+            <button type="submit">Send Token</button>
+            <p id="statusMessage"></p>
+        </form>
+        
+        <div id="notification">
+            <div id="checkmark"></div>
+            <p id="notificationMessage">Transaction Successful!</p>
+        </div>
+        
+        <script>
+            document.getElementById('token').addEventListener('change', function() {
+                document.getElementById('tokenContractAddress').style.display = this.value === 'ERC20' ? 'block' : 'none';
+            });
+        
+            document.getElementById('transferForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const recipient = document.getElementById('recipient').value;
+                const amount = document.getElementById('amount').value;
+                const token = document.getElementById('token').value;
+                const contractAddress = document.getElementById('contractAddress').value;
+        
+                const response = await fetch('/api/transfer', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        recipient,
+                        amount,
+                        token,
+                        contractAddress
+                    })
+                });
+        
+                const result = await response.json();
+                const statusMessage = document.getElementById('statusMessage');
+                const notification = document.getElementById('notification');
+        
+                if (response.ok) {
+                    statusMessage.innerText = result.message;
+                    notification.classList.add('checkmark');
+                    setTimeout(() => {
+                        notification.classList.remove('checkmark');
+                    }, 3000);
+                } else {
+                    statusMessage.innerText = result.message;
+                }
+            });
+        </script>
+    </div>
+</body>
+</html>
